@@ -1,0 +1,433 @@
+:root {
+  color-scheme: light;
+  --ink: #2a1a12;
+  --muted: #7a675b;
+  --paper: #f8eedb;
+  --paper-deep: #efe0c4;
+  --wood: #3f2418;
+  --wood-soft: #6d3f2a;
+  --brass: #b9853f;
+  --brass-dark: #7a4f22;
+  --line: rgba(80, 46, 29, 0.24);
+  --white: #fffaf0;
+  --shadow: 0 26px 70px rgba(21, 12, 8, 0.34);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Segoe UI", "Microsoft JhengHei", system-ui, sans-serif;
+  background:
+    linear-gradient(90deg, rgba(24, 13, 8, 0.76), rgba(24, 13, 8, 0.28) 48%, rgba(24, 13, 8, 0.72)),
+    linear-gradient(180deg, rgba(17, 10, 7, 0.35), rgba(17, 10, 7, 0.74)),
+    url("assets/classical-guitar-bg.png") center / cover fixed,
+    #2a1810;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 250, 238, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 250, 238, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mix-blend-mode: soft-light;
+}
+
+button,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+select {
+  border-radius: 8px;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 18px;
+  width: min(1200px, calc(100% - 28px));
+  min-height: calc(100vh - 28px);
+  margin: 14px auto;
+  position: relative;
+}
+
+.workspace,
+.side-panel {
+  border: 1px solid rgba(255, 238, 199, 0.28);
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.93), rgba(240, 222, 190, 0.93)),
+    var(--paper);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(90deg, rgba(63, 36, 24, 0.13), transparent 45%),
+    rgba(255, 248, 235, 0.68);
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(122, 79, 34, 0.42);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 24%, #f7ddb0, #b9853f 45%, #4a2a1c 100%);
+  color: #fff8e8;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3), 0 10px 28px rgba(63, 36, 24, 0.2);
+}
+
+.title-block {
+  min-width: 0;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--brass-dark);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2 {
+  margin-bottom: 0;
+  letter-spacing: 0;
+  font-family: Georgia, "Times New Roman", "Microsoft JhengHei", serif;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 3vw, 2.6rem);
+}
+
+h2 {
+  font-size: 1.34rem;
+}
+
+.subline {
+  margin: 7px 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.icon-button,
+.swap-button {
+  display: inline-grid;
+  place-items: center;
+  min-width: 44px;
+  height: 44px;
+  border: 1px solid rgba(122, 79, 34, 0.35);
+  background: linear-gradient(180deg, #fff7e8, #ead4ad);
+  color: var(--wood);
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(74, 42, 28, 0.12);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.icon-button {
+  padding: 0 14px;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.icon-button:hover,
+.swap-button:hover,
+.quick-row button:hover,
+.tabs button:hover {
+  border-color: var(--brass);
+  box-shadow: 0 10px 22px rgba(74, 42, 28, 0.18);
+  transform: translateY(-1px);
+}
+
+.control-panel {
+  display: grid;
+  grid-template-columns: 1fr 44px 1fr 1fr;
+  gap: 12px;
+  padding: 18px 24px 12px;
+  align-items: end;
+}
+
+label,
+.text-panel {
+  min-width: 0;
+}
+
+label > span,
+.text-panel > span,
+.panel-heading span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+select,
+textarea,
+pre {
+  width: 100%;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255, 251, 241, 0.96), rgba(246, 233, 207, 0.96)),
+    var(--paper);
+  color: var(--ink);
+}
+
+select {
+  height: 44px;
+  padding: 0 12px;
+  cursor: pointer;
+  outline-color: var(--brass);
+}
+
+.quick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 24px 18px;
+}
+
+.quick-row button,
+.tabs button {
+  min-height: 38px;
+  border: 1px solid rgba(122, 79, 34, 0.3);
+  background: rgba(255, 248, 232, 0.82);
+  color: var(--wood);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.quick-row button {
+  padding: 0 14px;
+}
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  min-height: 0;
+  padding: 0 24px 24px;
+  flex: 1;
+}
+
+.text-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea,
+pre {
+  flex: 1;
+  min-height: 430px;
+  margin: 0;
+  padding: 17px;
+  overflow: auto;
+  border-radius: 10px;
+  font-family: "Cascadia Mono", Consolas, "Microsoft JhengHei", monospace;
+  font-size: 1rem;
+  line-height: 1.68;
+  white-space: pre-wrap;
+  box-shadow: inset 0 2px 10px rgba(74, 42, 28, 0.08);
+}
+
+textarea {
+  resize: none;
+  outline-color: var(--brass);
+}
+
+.result-panel pre {
+  background:
+    linear-gradient(180deg, rgba(255, 248, 232, 0.98), rgba(235, 221, 191, 0.98)),
+    var(--paper-deep);
+  border-color: rgba(185, 133, 63, 0.42);
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.panel-heading strong {
+  padding: 4px 10px;
+  border: 1px solid rgba(122, 79, 34, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 248, 232, 0.72);
+  color: var(--brass-dark);
+  font-size: 0.86rem;
+}
+
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  border-radius: 14px;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 20px 0 14px;
+}
+
+.tabs button {
+  padding: 0 10px;
+}
+
+.tabs .active {
+  background: linear-gradient(180deg, #86552f, #4d2d1c);
+  border-color: #4d2d1c;
+  color: #fff7e8;
+}
+
+.diatonic-list {
+  display: grid;
+  gap: 9px;
+}
+
+.degree-row {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 248, 232, 0.76);
+}
+
+.degree {
+  color: var(--brass-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 800;
+}
+
+.chord {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-weight: 900;
+}
+
+.quality {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.mini-guide {
+  display: grid;
+  gap: 9px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.mini-guide div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: rgba(63, 36, 24, 0.08);
+}
+
+.mini-guide span {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.mini-guide strong {
+  font-family: "Cascadia Mono", Consolas, monospace;
+  color: var(--wood);
+}
+
+.hint-text {
+  margin: auto 0 0;
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .editor-grid,
+  .control-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .swap-button {
+    width: 100%;
+  }
+
+  .topbar {
+    grid-template-columns: 46px minmax(0, 1fr);
+  }
+
+  .icon-button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .brand-mark {
+    width: 46px;
+    height: 46px;
+    font-size: 1.5rem;
+  }
+
+  textarea,
+  pre {
+    min-height: 260px;
+  }
+}

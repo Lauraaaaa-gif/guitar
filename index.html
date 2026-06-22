@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>吉他轉調工作台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="workspace" aria-label="吉他轉調工作台">
+      <header class="topbar">
+        <div class="brand-mark" aria-hidden="true">G</div>
+        <div class="title-block">
+          <p class="eyebrow">Classical Guitar Transposer</p>
+          <h1>吉他轉調工作台</h1>
+          <p class="subline">輸入和弦、選擇調性，立即整理大小寫並轉成目標調。</p>
+        </div>
+        <button class="icon-button" id="copyResult" type="button" title="複製結果" aria-label="複製結果">
+          <span aria-hidden="true">Copy</span>
+        </button>
+      </header>
+
+      <div class="control-panel">
+        <label>
+          <span>原調</span>
+          <select id="fromKey"></select>
+        </label>
+        <button class="swap-button" id="swapKeys" type="button" title="交換調性" aria-label="交換調性">
+          <span aria-hidden="true">⇄</span>
+        </button>
+        <label>
+          <span>目標調</span>
+          <select id="toKey"></select>
+        </label>
+        <label>
+          <span>調式</span>
+          <select id="scaleMode">
+            <option value="major">大調</option>
+            <option value="minor">小調</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="quick-row" aria-label="快速轉調">
+        <button type="button" data-from="C" data-to="A">C → A</button>
+        <button type="button" data-from="G" data-to="E">G → E</button>
+        <button type="button" data-from="D" data-to="C">D → C</button>
+        <button type="button" data-from="A" data-to="G">A → G</button>
+      </div>
+
+      <div class="editor-grid">
+        <label class="text-panel">
+          <span>輸入和弦</span>
+          <textarea id="sourceChords" spellcheck="false">c  g/b  am  f
+dm7  g7  cmaj7
+fm  fmaj7  c/e  g</textarea>
+        </label>
+
+        <section class="text-panel result-panel" aria-live="polite">
+          <div class="panel-heading">
+            <span>轉調結果</span>
+            <strong id="intervalLabel">-3 半音</strong>
+          </div>
+          <pre id="resultChords"></pre>
+        </section>
+      </div>
+    </section>
+
+    <aside class="side-panel" aria-label="順階和弦">
+      <div class="key-summary">
+        <p class="eyebrow">Diatonic Chords</p>
+        <h2 id="scaleTitle">A 大調順階和弦</h2>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="順階和弦類型">
+        <button class="active" type="button" data-diatonic="triads">三和弦</button>
+        <button type="button" data-diatonic="sevenths">七和弦</button>
+      </div>
+
+      <div class="diatonic-list" id="diatonicList"></div>
+
+      <div class="mini-guide">
+        <div>
+          <span>自動整理</span>
+          <strong>am → Am</strong>
+        </div>
+        <div>
+          <span>保留轉位</span>
+          <strong>G/B → E/G#</strong>
+        </div>
+      </div>
+
+      <p class="hint-text">可貼上多行歌譜；工具只轉換符合和弦格式的文字，歌詞與段落會保留。</p>
+    </aside>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
