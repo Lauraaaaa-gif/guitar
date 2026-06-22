@@ -49,6 +49,23 @@
         <button type="button" data-from="A" data-to="G">A → G</button>
       </div>
 
+      <section class="analysis-panel" aria-label="和弦分析">
+        <article class="insight-card">
+          <span>推測調性</span>
+          <strong id="detectedKey">C 大調</strong>
+          <p id="detectedConfidence">依照目前和弦進行估算</p>
+          <button type="button" id="applyDetectedKey">套用為原調</button>
+        </article>
+        <article class="insight-card">
+          <span>Capo 建議</span>
+          <div id="capoSuggestions" class="capo-list"></div>
+        </article>
+        <article class="insight-card">
+          <span>級數進行</span>
+          <pre id="degreeProgression" class="degree-output"></pre>
+        </article>
+      </section>
+
       <div class="editor-grid">
         <label class="text-panel">
           <span>輸入和弦</span>
@@ -94,6 +111,16 @@ fm  fmaj7  c/e  g</textarea>
       <p class="hint-text">可貼上多行歌譜；工具只轉換符合和弦格式的文字，歌詞與段落會保留。</p>
     </aside>
   </main>
+
+  <div class="chord-modal" id="chordModal" hidden>
+    <div class="chord-card" role="dialog" aria-modal="true" aria-labelledby="chordModalTitle">
+      <button class="modal-close" id="closeChordModal" type="button" title="關閉" aria-label="關閉">×</button>
+      <p class="eyebrow">Chord Diagram</p>
+      <h2 id="chordModalTitle">C</h2>
+      <div class="diagram-wrap" id="chordDiagram"></div>
+      <p class="diagram-note" id="chordDiagramNote">點擊轉調結果中的和弦即可查詢。</p>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
