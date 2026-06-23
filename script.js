@@ -88,6 +88,9 @@ const closeChordModal = document.querySelector("#closeChordModal");
 const chordModalTitle = document.querySelector("#chordModalTitle");
 const chordDiagram = document.querySelector("#chordDiagram");
 const chordDiagramNote = document.querySelector("#chordDiagramNote");
+const chordLookupInput = document.querySelector("#chordLookupInput");
+const lookupChordButton = document.querySelector("#lookupChordButton");
+const openChordLookup = document.querySelector("#openChordLookup");
 
 const majorDegrees = [
   { degree: "I", offset: 0, quality: "major" },
@@ -358,6 +361,26 @@ function renderChordDiagram(chordName) {
   chordModal.hidden = false;
 }
 
+function lookupChordFromField() {
+  const normalized = normalizeChordText(chordLookupInput.value.trim());
+  const [firstChord] = extractChords(normalized);
+
+  if (!firstChord) {
+    chordLookupInput.focus();
+    return;
+  }
+
+  chordLookupInput.value = firstChord.raw;
+  renderChordDiagram(firstChord.raw);
+}
+
+function openLookupFromResult() {
+  const resultText = resultChords.dataset.copyText || resultChords.textContent;
+  const [firstChord] = extractChords(resultText);
+  if (firstChord) chordLookupInput.value = firstChord.raw;
+  lookupChordFromField();
+}
+
 function scoreKey(chords, key, mode) {
   const tonicPitch = pitchOf(key);
   const degrees = mode === "minor" ? minorDegrees : majorDegrees;
@@ -566,7 +589,28 @@ copyResult.addEventListener("click", async () => {
 resultChords.addEventListener("click", (event) => {
   const button = event.target.closest(".chord-token");
   if (!button) return;
+  chordLookupInput.value = button.dataset.chord;
   renderChordDiagram(button.dataset.chord);
+});
+
+lookupChordButton.addEventListener("click", lookupChordFromField);
+
+openChordLookup.addEventListener("click", openLookupFromResult);
+
+chordLookupInput.addEventListener("input", () => {
+  const start = chordLookupInput.selectionStart;
+  const end = chordLookupInput.selectionEnd;
+  const normalized = normalizeChordText(chordLookupInput.value);
+  if (normalized !== chordLookupInput.value) {
+    chordLookupInput.value = normalized;
+    chordLookupInput.setSelectionRange(start, end);
+  }
+});
+
+chordLookupInput.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
+  event.preventDefault();
+  lookupChordFromField();
 });
 
 closeChordModal.addEventListener("click", () => {

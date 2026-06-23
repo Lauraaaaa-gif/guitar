@@ -170,7 +170,8 @@ h2 {
 .icon-button:hover,
 .swap-button:hover,
 .quick-row button:hover,
-.tabs button:hover {
+.tabs button:hover,
+.lookup-shortcut:hover {
   border-color: var(--brass);
   box-shadow: 0 10px 22px rgba(74, 42, 28, 0.18);
   transform: translateY(-1px);
@@ -225,7 +226,8 @@ select {
 }
 
 .quick-row button,
-.tabs button {
+.tabs button,
+.lookup-shortcut {
   min-height: 38px;
   border: 1px solid rgba(122, 79, 34, 0.3);
   background: rgba(255, 248, 232, 0.82);
@@ -391,6 +393,20 @@ textarea {
   gap: 10px;
 }
 
+.result-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lookup-shortcut {
+  min-height: 34px;
+  padding: 0 12px;
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
 .panel-heading strong {
   padding: 4px 10px;
   border: 1px solid rgba(122, 79, 34, 0.28);
@@ -488,6 +504,45 @@ textarea {
 .mini-guide strong {
   font-family: "Cascadia Mono", Consolas, monospace;
   color: var(--wood);
+}
+
+.lookup-panel {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.lookup-panel input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 251, 241, 0.96), rgba(246, 233, 207, 0.96)),
+    var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-family: "Cascadia Mono", Consolas, "Microsoft JhengHei", monospace;
+  outline-color: var(--brass);
+}
+
+.lookup-panel button {
+  min-height: 42px;
+  border: 1px solid rgba(122, 79, 34, 0.35);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fff7e8, #ead4ad);
+  color: var(--wood);
+  cursor: pointer;
+  font-weight: 900;
+  box-shadow: 0 8px 18px rgba(74, 42, 28, 0.12);
+}
+
+.lookup-panel button:hover {
+  border-color: var(--brass);
+  box-shadow: 0 10px 22px rgba(74, 42, 28, 0.18);
 }
 
 .hint-text {
@@ -601,6 +656,12 @@ textarea {
   .icon-button {
     grid-column: 1 / -1;
     width: 100%;
+  }
+
+  .panel-heading,
+  .result-actions {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .brand-mark {
