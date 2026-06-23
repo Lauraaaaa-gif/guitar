@@ -1,7 +1,7 @@
 :root {
   color-scheme: light;
-  --ink: #2a1a12;
-  --muted: #7a675b;
+  --ink: #333333;
+  --muted: #6f625b;
   --paper: #f8eedb;
   --paper-deep: #efe0c4;
   --wood: #3f2418;
@@ -11,6 +11,7 @@
   --line: rgba(80, 46, 29, 0.24);
   --white: #fffaf0;
   --shadow: 0 26px 70px rgba(21, 12, 8, 0.34);
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 * {
@@ -21,7 +22,10 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--ink);
-  font-family: "Segoe UI", "Microsoft JhengHei", system-ui, sans-serif;
+  font-family: "Noto Sans TC", "Segoe UI", "Microsoft JhengHei", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.72;
+  letter-spacing: 0.05em;
   background:
     linear-gradient(90deg, rgba(24, 13, 8, 0.76), rgba(24, 13, 8, 0.28) 48%, rgba(24, 13, 8, 0.72)),
     linear-gradient(180deg, rgba(17, 10, 7, 0.35), rgba(17, 10, 7, 0.74)),
@@ -48,6 +52,26 @@ textarea {
 }
 
 button,
+select,
+textarea,
+input {
+  transition: all 0.3s ease;
+}
+
+button:active {
+  transform: translateY(0) scale(0.985);
+}
+
+button:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+  outline: 0;
+  border-color: var(--brass);
+  box-shadow: 0 0 0 4px rgba(185, 133, 63, 0.18), 0 10px 24px rgba(74, 42, 28, 0.12);
+}
+
+button,
 select {
   border-radius: 8px;
 }
@@ -70,6 +94,7 @@ select {
     var(--paper);
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
+  animation: surfaceIn 0.55s var(--ease) both;
 }
 
 .workspace {
@@ -101,10 +126,16 @@ select {
   border-radius: 50%;
   background: radial-gradient(circle at 30% 24%, #f7ddb0, #b9853f 45%, #4a2a1c 100%);
   color: #fff8e8;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", "Noto Sans TC", serif;
   font-size: 1.85rem;
   font-weight: 700;
   box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3), 0 10px 28px rgba(63, 36, 24, 0.2);
+  transition: all 0.3s ease;
+}
+
+.brand-mark:hover {
+  transform: translateY(-5px) rotate(-4deg) scale(1.04);
+  box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.34), 0 20px 42px rgba(63, 36, 24, 0.32);
 }
 
 .title-block {
@@ -114,37 +145,47 @@ select {
 .eyebrow {
   margin: 0 0 6px;
   color: var(--brass-dark);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 h1,
 h2,
+h3,
 p {
   margin-top: 0;
 }
 
 h1,
-h2 {
+h2,
+h3 {
   margin-bottom: 0;
-  letter-spacing: 0;
-  font-family: Georgia, "Times New Roman", "Microsoft JhengHei", serif;
+  color: #2f2a27;
+  letter-spacing: 0.05em;
+  font-family: Georgia, "Times New Roman", "Noto Sans TC", "Microsoft JhengHei", serif;
+  font-weight: 900;
+  line-height: 1.24;
 }
 
 h1 {
-  font-size: clamp(1.75rem, 3vw, 2.6rem);
+  font-size: clamp(2.05rem, 3.5vw, 3.15rem);
 }
 
 h2 {
-  font-size: 1.34rem;
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.22rem;
 }
 
 .subline {
   margin: 7px 0 0;
   color: var(--muted);
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.78;
 }
 
 .icon-button,
@@ -158,7 +199,7 @@ h2 {
   color: var(--wood);
   cursor: pointer;
   box-shadow: 0 8px 18px rgba(74, 42, 28, 0.12);
-  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  transition: all 0.3s ease;
 }
 
 .icon-button {
@@ -173,8 +214,9 @@ h2 {
 .tabs button:hover,
 .lookup-shortcut:hover {
   border-color: var(--brass);
-  box-shadow: 0 10px 22px rgba(74, 42, 28, 0.18);
-  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(74, 42, 28, 0.23);
+  transform: translateY(-5px);
+  filter: saturate(1.08);
 }
 
 .control-panel {
@@ -182,6 +224,17 @@ h2 {
   grid-template-columns: 1fr 44px 1fr 1fr;
   gap: 12px;
   padding: 18px 24px 12px;
+  align-items: end;
+}
+
+.control-panel.row,
+.editor-grid.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.swap-cell {
+  display: grid;
   align-items: end;
 }
 
@@ -198,6 +251,7 @@ label > span,
   color: var(--muted);
   font-size: 0.9rem;
   font-weight: 800;
+  letter-spacing: 0.07em;
 }
 
 select,
@@ -256,6 +310,13 @@ select {
     linear-gradient(180deg, rgba(255, 248, 232, 0.84), rgba(238, 218, 184, 0.78)),
     var(--paper-deep);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38);
+  transition: all 0.3s ease;
+}
+
+.insight-card:hover {
+  border-color: rgba(185, 133, 63, 0.44);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 20px 38px rgba(74, 42, 28, 0.18);
+  transform: translateY(-5px);
 }
 
 .insight-card > span {
@@ -269,7 +330,7 @@ select {
 .insight-card > strong {
   display: block;
   color: var(--wood);
-  font-family: Georgia, "Times New Roman", "Microsoft JhengHei", serif;
+  font-family: Georgia, "Times New Roman", "Noto Sans TC", "Microsoft JhengHei", serif;
   font-size: 1.26rem;
 }
 
@@ -277,7 +338,7 @@ select {
   margin: 7px 0 10px;
   color: var(--muted);
   font-size: 0.86rem;
-  line-height: 1.5;
+  line-height: 1.72;
 }
 
 .insight-card button {
@@ -321,7 +382,7 @@ select {
   padding: 10px;
   border-radius: 8px;
   font-size: 0.88rem;
-  line-height: 1.55;
+  line-height: 1.72;
 }
 
 .editor-grid {
@@ -346,9 +407,10 @@ pre {
   padding: 17px;
   overflow: auto;
   border-radius: 10px;
-  font-family: "Cascadia Mono", Consolas, "Microsoft JhengHei", monospace;
+  font-family: "Cascadia Mono", Consolas, "Noto Sans TC", "Microsoft JhengHei", monospace;
   font-size: 1rem;
-  line-height: 1.68;
+  line-height: 1.78;
+  letter-spacing: 0.035em;
   white-space: pre-wrap;
   box-shadow: inset 0 2px 10px rgba(74, 42, 28, 0.08);
 }
@@ -378,12 +440,15 @@ textarea {
   font-size: inherit;
   font-weight: 900;
   line-height: inherit;
+  transition: all 0.3s ease;
 }
 
 .chord-token:hover,
 .chord-token:focus-visible {
   background: rgba(122, 79, 34, 0.28);
   outline: 1px solid rgba(122, 79, 34, 0.48);
+  box-shadow: 0 8px 18px rgba(74, 42, 28, 0.18);
+  transform: translateY(-5px);
 }
 
 .panel-heading {
@@ -455,11 +520,19 @@ textarea {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255, 248, 232, 0.76);
+  transition: all 0.3s ease;
+}
+
+.degree-row:hover {
+  border-color: rgba(185, 133, 63, 0.42);
+  background: rgba(255, 248, 232, 0.95);
+  box-shadow: 0 14px 26px rgba(74, 42, 28, 0.12);
+  transform: translateY(-5px);
 }
 
 .degree {
   color: var(--brass-dark);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", "Noto Sans TC", serif;
   font-weight: 800;
 }
 
@@ -502,7 +575,7 @@ textarea {
 }
 
 .mini-guide strong {
-  font-family: "Cascadia Mono", Consolas, monospace;
+  font-family: "Cascadia Mono", Consolas, "Noto Sans TC", monospace;
   color: var(--wood);
 }
 
@@ -525,7 +598,7 @@ textarea {
     var(--paper);
   color: var(--ink);
   font: inherit;
-  font-family: "Cascadia Mono", Consolas, "Microsoft JhengHei", monospace;
+  font-family: "Cascadia Mono", Consolas, "Noto Sans TC", "Microsoft JhengHei", monospace;
   outline-color: var(--brass);
 }
 
@@ -542,7 +615,8 @@ textarea {
 
 .lookup-panel button:hover {
   border-color: var(--brass);
-  box-shadow: 0 10px 22px rgba(74, 42, 28, 0.18);
+  box-shadow: 0 16px 30px rgba(74, 42, 28, 0.22);
+  transform: translateY(-5px);
 }
 
 .hint-text {
@@ -550,7 +624,7 @@ textarea {
   padding-top: 18px;
   color: var(--muted);
   font-size: 0.92rem;
-  line-height: 1.6;
+  line-height: 1.78;
 }
 
 .chord-modal {
@@ -578,6 +652,7 @@ textarea {
     linear-gradient(180deg, rgba(255, 250, 240, 0.98), rgba(239, 222, 194, 0.98)),
     var(--paper);
   box-shadow: 0 28px 70px rgba(11, 6, 4, 0.45);
+  animation: modalIn 0.28s var(--ease) both;
 }
 
 .modal-close {
@@ -627,7 +702,42 @@ textarea {
   margin: 0;
   color: var(--muted);
   font-size: 0.9rem;
-  line-height: 1.55;
+  line-height: 1.72;
+}
+
+@keyframes surfaceIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @media (max-width: 900px) {

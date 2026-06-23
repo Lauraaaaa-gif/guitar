@@ -4,11 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>吉他轉調與指法工具</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9Oer+R4ePHM7G8x6p5T9tT7T4eT7fE9Q4x8Nf6E7e0X8" crossorigin="anonymous">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="app-shell">
-    <section class="workspace" aria-label="吉他轉調工作區">
+  <main class="app-shell container-fluid">
+    <section class="workspace" aria-label="吉他轉調工作區" data-aos="fade-up" data-aos-duration="650">
       <header class="topbar">
         <div class="brand-mark" aria-hidden="true">G</div>
         <div class="title-block">
@@ -21,21 +26,23 @@
         </button>
       </header>
 
-      <div class="control-panel">
-        <label>
+      <div class="control-panel row g-3">
+        <label class="col">
           <span>原調</span>
-          <select id="fromKey"></select>
+          <select id="fromKey" class="form-select"></select>
         </label>
-        <button class="swap-button" id="swapKeys" type="button" title="交換調性" aria-label="交換調性">
-          <span aria-hidden="true">⇄</span>
-        </button>
-        <label>
+        <div class="swap-cell">
+          <button class="swap-button" id="swapKeys" type="button" title="交換調性" aria-label="交換調性">
+            <span aria-hidden="true">⇄</span>
+          </button>
+        </div>
+        <label class="col">
           <span>目標調</span>
-          <select id="toKey"></select>
+          <select id="toKey" class="form-select"></select>
         </label>
-        <label>
+        <label class="col">
           <span>調式</span>
-          <select id="scaleMode">
+          <select id="scaleMode" class="form-select">
             <option value="major">大調</option>
             <option value="minor">小調</option>
           </select>
@@ -50,31 +57,31 @@
       </div>
 
       <section class="analysis-panel" aria-label="和弦分析">
-        <article class="insight-card">
+        <article class="insight-card" data-aos="fade-up" data-aos-delay="80">
           <span>可能調性</span>
           <strong id="detectedKey">C 大調</strong>
           <p id="detectedConfidence">輸入和弦後會自動推測調性。</p>
           <button type="button" id="applyDetectedKey">套用為原調</button>
         </article>
-        <article class="insight-card">
+        <article class="insight-card" data-aos="fade-up" data-aos-delay="160">
           <span>Capo 建議</span>
           <div id="capoSuggestions" class="capo-list"></div>
         </article>
-        <article class="insight-card">
+        <article class="insight-card" data-aos="fade-up" data-aos-delay="240">
           <span>級數進行</span>
           <pre id="degreeProgression" class="degree-output"></pre>
         </article>
       </section>
 
-      <div class="editor-grid">
-        <label class="text-panel">
+      <div class="editor-grid row g-4" data-aos="fade-up" data-aos-delay="180">
+        <label class="text-panel col-lg-6">
           <span>輸入和弦</span>
-          <textarea id="sourceChords" spellcheck="false">c  g/b  am  f
+          <textarea id="sourceChords" class="form-control" spellcheck="false">c  g/b  am  f
 dm7  g7  cmaj7
 fm  fmaj7  c/e  g</textarea>
         </label>
 
-        <section class="text-panel result-panel" aria-live="polite">
+        <section class="text-panel result-panel col-lg-6" aria-live="polite">
           <div class="panel-heading">
             <span>轉調結果</span>
             <div class="result-actions">
@@ -87,7 +94,7 @@ fm  fmaj7  c/e  g</textarea>
       </div>
     </section>
 
-    <aside class="side-panel" aria-label="順階和弦與指法">
+    <aside class="side-panel" aria-label="順階和弦與指法" data-aos="fade-left" data-aos-duration="700" data-aos-delay="120">
       <div class="key-summary">
         <p class="eyebrow">Diatonic Chords</p>
         <h2 id="scaleTitle">A 大調順階和弦</h2>
@@ -98,9 +105,9 @@ fm  fmaj7  c/e  g</textarea>
         <button type="button" data-diatonic="sevenths">七和弦</button>
       </div>
 
-      <div class="diatonic-list" id="diatonicList"></div>
+      <div class="diatonic-list" id="diatonicList" data-aos="fade-up" data-aos-delay="220"></div>
 
-      <div class="mini-guide">
+      <div class="mini-guide" data-aos="fade-up" data-aos-delay="260">
         <div>
           <span>自動整理</span>
           <strong>am → Am</strong>
@@ -111,10 +118,10 @@ fm  fmaj7  c/e  g</textarea>
         </div>
       </div>
 
-      <div class="lookup-panel">
+      <div class="lookup-panel" data-aos="fade-up" data-aos-delay="300">
         <label>
           <span>輸入和弦查指法</span>
-          <input id="chordLookupInput" type="text" value="Am" autocomplete="off" spellcheck="false">
+          <input id="chordLookupInput" class="form-control" type="text" value="Am" autocomplete="off" spellcheck="false">
         </label>
         <button id="lookupChordButton" type="button">查詢指法</button>
       </div>
@@ -133,6 +140,8 @@ fm  fmaj7  c/e  g</textarea>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

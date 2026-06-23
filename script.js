@@ -491,9 +491,11 @@ function renderDiatonic() {
   scaleTitle.textContent = `${key} ${modeName}順階和弦`;
   diatonicList.innerHTML = "";
 
-  getDiatonicRows().forEach(([degree, offset, suffix, quality]) => {
+  getDiatonicRows().forEach(([degree, offset, suffix, quality], index) => {
     const row = document.createElement("div");
     row.className = "degree-row";
+    row.dataset.aos = "fade-up";
+    row.dataset.aosDelay = String(80 + index * 45);
 
     const degreeNode = document.createElement("div");
     degreeNode.className = "degree";
@@ -529,6 +531,7 @@ function update() {
   renderCapoSuggestions();
   renderDegreeProgression();
   renderDiatonic();
+  if (window.AOS) window.AOS.refreshHard();
 }
 
 keys.forEach((key) => {
@@ -624,6 +627,15 @@ chordModal.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") chordModal.hidden = true;
 });
+
+if (window.AOS) {
+  window.AOS.init({
+    duration: 650,
+    easing: "ease-out-cubic",
+    once: true,
+    offset: 80
+  });
+}
 
 normalizeInputField();
 update();
